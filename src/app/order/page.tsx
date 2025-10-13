@@ -15,6 +15,10 @@ export default function OrderPage() {
 
     const storetablepkey = searchParams.get("storetablepkey");
 
+    const handleOrder = async () => {
+        console.log('주문 버튼');
+    }
+
     useEffect(() => {
         // TODO 주문서 상세 및 주문상품 목록 조회
         console.log(storetablepkey);
@@ -251,7 +255,7 @@ export default function OrderPage() {
             </div>
             <div className='flex flex-col flex-[4] gap-2'>
                 <CategoryMenuList/>
-                <ActionButtons/>
+                <ActionButtons handleOrder={handleOrder}/>
             </div>
         </div>
     )

@@ -55,14 +55,14 @@ export default function CategoryMenuList() {
             <div className='flex flex-col gap-1 h-full'>
                 <div className='flex-[2] grid grid-cols-5 grid-rows-2 rounded-xl bg-gray-400 w-full gap-2 p-1'>
                     {categorylist.map((item, index) => (
-                        <div key={index} className='flex items-center justify-center bg-white rounded-2xl'>
+                        <div key={index} className='flex items-center justify-center bg-white rounded-2xl active:bg-gray-900 active:text-orange-400'>
                             <p>{item.categoryname}</p>
                         </div>
                     ))}
                 </div>
                 <div className='flex-[6] grid grid-cols-5 grid-rows-6 rounded-xl bg-gray-400 w-full gap-2 p-1'>
                     {categorylist.map((item, index) => (
-                        <div key={index} className='flex items-center justify-center bg-white rounded-2xl'>
+                        <div key={index} className='flex items-center justify-center bg-white rounded-2xl active:bg-gray-900 active:text-orange-400'>
                             <p>{item.categoryname}</p>
                         </div>
                     ))}
