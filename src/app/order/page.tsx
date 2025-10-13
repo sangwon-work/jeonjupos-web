@@ -241,21 +241,15 @@ export default function OrderPage() {
     }, [])
 
     return (
-        <div className='h-[calc(100dvh-5.5rem)] p-4 flex'>
-            <div className='flex-[2] border'>
-                <div className='grid grid-rows-2'>
-                    <div className='row-span-1'>
-                        <OrderList orderfoodlist={orderlist.orderfoodlist}/>
-                    </div>
-                    <div className='row-span-1'>
-                        <div className='flex'>
-                            <PaymentSummary/>
-                            <KeyPad/>
-                        </div>
-                    </div>
+        <div className='h-[calc(100dvh-5.5rem)] p-4 flex gap-2'>
+            <div className='flex-[3] flex flex-col gap-2'>
+                <OrderList orderfoodlist={orderlist.orderfoodlist}/>
+                <div className='flex h-full gap-2'>
+                    <PaymentSummary/>
+                    <KeyPad/>
                 </div>
             </div>
-            <div className='flex flex-col flex-[4] border-t-1 border-b-1 border-e-1'>
+            <div className='flex flex-col flex-[4] gap-2'>
                 <CategoryMenuList/>
                 <ActionButtons/>
             </div>
