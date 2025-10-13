@@ -244,7 +244,7 @@ export default function OrderPage() {
         <div className='h-[calc(100dvh-5.5rem)] p-4 flex gap-2'>
             <div className='flex-[3] flex flex-col gap-2'>
                 <OrderList orderfoodlist={orderlist.orderfoodlist}/>
-                <div className='flex h-full gap-2'>
+                <div className='flex gap-2 h-[1rem] sm:h-[15rem] md:h-[15rem] lg:h-[23rem] xl:h-[28rem]'>
                     <PaymentSummary/>
                     <KeyPad/>
                 </div>
