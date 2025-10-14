@@ -7,254 +7,150 @@ import KeyPad from "@/components/order/KeyPad";
 import PaymentSummary from "@/components/order/PaymentSummary";
 import CategoryMenuList from "@/components/order/CategoryMenuList";
 import ActionButtons from "@/components/order/ActionButtons";
+import {getOrderFoodList, getOrderInfo} from "@/lib/api/services/order-api";
 
 export default function OrderPage() {
-    const [orderlist, setOrderlist] = useState<any>({});
     const searchParams = useSearchParams();
+    const [orderfoodlist, setOrderfoodlist] = useState<any>([]);
+    const [totalordercount, setTotalordercount] = useState(0);
+    const [totalprice, setTotalprice] = useState(0);
+    const [inputValue, setInputValue] = useState<number>(0);
+    const [orderprice, setOrderprice] = useState<number>(0);
+    const [payprice, setPayprice] = useState<number>(0);
+
     const router = useRouter();
 
-    const storetablepkey = searchParams.get("storetablepkey");
-
-    const handleOrder = async () => {
-        console.log('주문 버튼');
-    }
-
-    const handleFoodAction = (foodpkey: number) => {
-        console.log('메뉴 클릭')
-    }
+    const storetablepkey: number = Number(searchParams.get("storetablepkey") ?? 0);
 
     useEffect(() => {
-        // TODO 주문서 상세 및 주문상품 목록 조회
+        // 주문서 상세 및 주문상품 목록 조회
         console.log(storetablepkey);
-        setOrderlist(
-            {
-                orderinfopkey: 1,
-                servicetype: 'DINEIN',
-                orderstatus: 'PAID',
-                address: '서울 구로구 가마산로 231 보광아파트 6동 404호',
-                orderfoodlist: [
-                    {
-                        orderfoodpkey: 1,
-                        foodname: '칼국수',
-                        saleprice: 8000,
-                        ordercount: 2,
-                        totalprice: 16000,
-                    },
-                    {
-                        orderfoodpkey: 2,
-                        foodname: '김치찌개',
-                        saleprice: 8000,
-                        ordercount: 2,
-                        totalprice: 16000,
-                    },
-                    {
-                        orderfoodpkey: 3,
-                        foodname: '된장찌개',
-                        saleprice: 8000,
-                        ordercount: 2,
-                        totalprice: 16000,
-                    },
-                    {
-                        orderfoodpkey: 3,
-                        foodname: '된장찌개',
-                        saleprice: 8000,
-                        ordercount: 2,
-                        totalprice: 16000,
-                    },
-                    {
-                        orderfoodpkey: 3,
-                        foodname: '된장찌개',
-                        saleprice: 8000,
-                        ordercount: 2,
-                        totalprice: 16000,
-                    },
-                    {
-                        orderfoodpkey: 3,
-                        foodname: '된장찌개',
-                        saleprice: 8000,
-                        ordercount: 2,
-                        totalprice: 16000,
-                    },
-                    {
-                        orderfoodpkey: 3,
-                        foodname: '된장찌개',
-                        saleprice: 8000,
-                        ordercount: 2,
-                        totalprice: 16000,
-                    },
-                    {
-                        orderfoodpkey: 3,
-                        foodname: '된장찌개',
-                        saleprice: 8000,
-                        ordercount: 2,
-                        totalprice: 16000,
-                    },
-                    {
-                        orderfoodpkey: 3,
-                        foodname: '된장찌개',
-                        saleprice: 8000,
-                        ordercount: 2,
-                        totalprice: 16000,
-                    },
-                    {
-                        orderfoodpkey: 3,
-                        foodname: '된장찌개',
-                        saleprice: 8000,
-                        ordercount: 2,
-                        totalprice: 16000,
-                    },
-                    {
-                        orderfoodpkey: 3,
-                        foodname: '된장찌개',
-                        saleprice: 8000,
-                        ordercount: 2,
-                        totalprice: 16000,
-                    },
-                    {
-                        orderfoodpkey: 3,
-                        foodname: '된장찌개',
-                        saleprice: 8000,
-                        ordercount: 2,
-                        totalprice: 16000,
-                    },
-                    {
-                        orderfoodpkey: 3,
-                        foodname: '된장찌개',
-                        saleprice: 8000,
-                        ordercount: 2,
-                        totalprice: 16000,
-                    },
-                    {
-                        orderfoodpkey: 3,
-                        foodname: '된장찌개',
-                        saleprice: 8000,
-                        ordercount: 2,
-                        totalprice: 16000,
-                    },
-                    {
-                        orderfoodpkey: 3,
-                        foodname: '된장찌개',
-                        saleprice: 8000,
-                        ordercount: 2,
-                        totalprice: 16000,
-                    },
-                    {
-                        orderfoodpkey: 3,
-                        foodname: '된장찌개',
-                        saleprice: 8000,
-                        ordercount: 2,
-                        totalprice: 16000,
-                    },
-                    {
-                        orderfoodpkey: 3,
-                        foodname: '된장찌개',
-                        saleprice: 8000,
-                        ordercount: 2,
-                        totalprice: 16000,
-                    },
-                    {
-                        orderfoodpkey: 3,
-                        foodname: '된장찌개',
-                        saleprice: 8000,
-                        ordercount: 2,
-                        totalprice: 16000,
-                    },
-                    {
-                        orderfoodpkey: 3,
-                        foodname: '된장찌개',
-                        saleprice: 8000,
-                        ordercount: 2,
-                        totalprice: 16000,
-                    },
-                    {
-                        orderfoodpkey: 3,
-                        foodname: '된장찌개',
-                        saleprice: 8000,
-                        ordercount: 2,
-                        totalprice: 16000,
-                    },
-                    {
-                        orderfoodpkey: 3,
-                        foodname: '된장찌개',
-                        saleprice: 8000,
-                        ordercount: 2,
-                        totalprice: 16000,
-                    },
-                    {
-                        orderfoodpkey: 3,
-                        foodname: '된장찌개',
-                        saleprice: 8000,
-                        ordercount: 2,
-                        totalprice: 16000,
-                    },
-                    {
-                        orderfoodpkey: 3,
-                        foodname: '된장찌개',
-                        saleprice: 8000,
-                        ordercount: 2,
-                        totalprice: 16000,
-                    },
-                    {
-                        orderfoodpkey: 3,
-                        foodname: '된장찌개',
-                        saleprice: 8000,
-                        ordercount: 2,
-                        totalprice: 16000,
-                    },
-                    {
-                        orderfoodpkey: 3,
-                        foodname: '된장찌개',
-                        saleprice: 8000,
-                        ordercount: 2,
-                        totalprice: 16000,
-                    },
-                    {
-                        orderfoodpkey: 3,
-                        foodname: '된장찌개',
-                        saleprice: 8000,
-                        ordercount: 2,
-                        totalprice: 16000,
-                    },
-                    {
-                        orderfoodpkey: 3,
-                        foodname: '된장찌개',
-                        saleprice: 8000,
-                        ordercount: 2,
-                        totalprice: 16000,
-                    },
-                    {
-                        orderfoodpkey: 3,
-                        foodname: '된장찌개',
-                        saleprice: 8000,
-                        ordercount: 2,
-                        totalprice: 16000,
-                    },
-                    {
-                        orderfoodpkey: 3,
-                        foodname: '된장찌개',
-                        saleprice: 8000,
-                        ordercount: 2,
-                        totalprice: 16000,
-                    },
-                    {
-                        orderfoodpkey: 3,
-                        foodname: '된장찌개',
-                        saleprice: 8000,
-                        ordercount: 2,
-                        totalprice: 16000,
-                    }
-                ]
-            }
-        )
+        fetchOrderInfo();
     }, [])
+
+    // 주문버튼 클릭
+    const handleOrder = async () => {
+        console.log('주문 버튼');
+        router.replace('/store-table')
+    }
+
+    // 메뉴 추가
+    const handleFoodAction = (foodpkey: number, foodname: string, saleprice: number) => {
+        setTotalordercount(totalordercount + 1);
+        setTotalprice(totalprice + saleprice);
+
+        setOrderfoodlist((prev: any) => {
+            const idx = prev.findIndex(
+                (of: any) => of.foodpkey === foodpkey
+            );
+
+            if (idx > -1) {
+                const cur = prev[idx];
+                const price = Number(cur.saleprice); // 혹시 문자열일 수 있으니 숫자화
+                const nextCount = (cur.ordercount ?? 0) + 1;
+
+                const updated = {
+                    ...cur,
+                    ordercount: nextCount,
+                    totalprice: price * nextCount,
+                };
+
+                const next = [...prev];
+                next[idx] = updated;
+                return next;
+            }
+
+            const price = Number(saleprice);
+            return [
+                ...prev,
+                {
+                    orderfoodpkey: 0,
+                    foodpkey,
+                    foodname: `${foodname}`,
+                    saleprice: price,
+                    ordercount: 1,
+                    totalprice: price,
+                },
+            ];
+        });
+    }
+
+    // 주문수량 변경
+    const updateOrderCountAction = (foodpkey: number, type: 'plus' | 'minus') => {
+        setOrderfoodlist((prev: any) => {
+            const idx = prev.findIndex(
+                (of: any) => of.foodpkey === foodpkey
+            );
+
+            if (idx > -1) {
+                const cur = prev[idx];
+                const price: number = Number(cur.saleprice); // 혹시 문자열일 수 있으니 숫자화
+                let nextCount: number = cur.ordercount ?? 0;
+                if (nextCount > 0) {
+                    if (type === 'plus') {
+                        setTotalordercount(totalordercount + 1);
+                        setTotalprice(totalprice + price);
+                        nextCount = (cur.ordercount ?? 0) + 1;
+                    } else {
+                        setTotalordercount(totalordercount - 1);
+                        setTotalprice(totalprice - price);
+                        nextCount = (cur.ordercount ?? 0) - 1;
+                    }
+
+                    const updated = {
+                        ...cur,
+                        ordercount: nextCount,
+                        totalprice: price * nextCount,
+                    };
+
+                    const next = [...prev];
+                    next[idx] = updated;
+
+                    return next;
+                } else {
+                    return [...prev];
+                }
+            }
+        });
+    }
+
+    // 주문정보 조회
+    const fetchOrderInfo = async () => {
+        try {
+            const response = await getOrderInfo(storetablepkey);
+            if (response.status === 200 && response.data.rescode === '0000') {
+                const { orderinfo } = response.data.body;
+                if (orderinfo !== null) {
+                    setOrderprice(orderinfo.orderprice);
+                    setPayprice(orderinfo.payprice);
+                    // 주문 메뉴 목록 조회
+                    const orderFoodResponse = await getOrderFoodList(orderinfo.orderinfopkey);
+                    setOrderfoodlist(orderFoodResponse.data.body.orderfoodlist);
+                    setTotalordercount(orderFoodResponse.data.body.totalordercount);
+                    setTotalprice(orderFoodResponse.data.body.totalprice);
+                    return;
+                } else {
+                    return;
+                }
+            }
+            console.log(response);
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    // Keypad에서 Enter 클릭 시 결제정보 받은금액 값 변경
+    const onEnterKeyClickAction = (value: number) => {
+        setInputValue(value);
+    }
 
     return (
         <div className='h-[calc(100dvh-5.5rem)] p-4 flex gap-2'>
             <div className='flex-[3] flex flex-col gap-2'>
-                <OrderList orderfoodlist={orderlist.orderfoodlist}/>
+                <OrderList updateOrderCountAction={updateOrderCountAction} orderfoodlist={orderfoodlist} totalordercount={totalordercount} totalprice={totalprice}/>
                 <div className='flex gap-2 h-[1rem] sm:h-[15rem] md:h-[15rem] lg:h-[23rem] xl:h-[28rem]'>
-                    <PaymentSummary/>
-                    <KeyPad/>
+                    <PaymentSummary inputValue={inputValue} orderprice={orderprice} payprice={payprice}/>
+                    <KeyPad onEnterKeyClickAction={onEnterKeyClickAction}/>
                 </div>
             </div>
             <div className='flex flex-col flex-[4] gap-2'>

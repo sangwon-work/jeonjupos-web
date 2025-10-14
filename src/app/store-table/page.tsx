@@ -9,10 +9,10 @@ export default function StoreTable() {
 
     useEffect(() => {
         // 테이블 목록 조회
-        featchStoreTable();
+        fetchStoreTable();
     }, [])
 
-    const featchStoreTable = async () => {
+    const fetchStoreTable = async () => {
         try {
             const response = await getStoreTable();
             console.log(response);

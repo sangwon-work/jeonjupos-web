@@ -1,10 +1,22 @@
 'use client'
 
+import { useState } from 'react';
+import { Plus, Minus } from 'lucide-react';
+
 type Props = {
+    updateOrderCountAction: (foodpkey: number, type: 'plus' | 'minus') => void;
     orderfoodlist?: any[]
+    totalordercount?: number
+    totalprice?: number
 }
 
-export default function OrderList({orderfoodlist=[]}: Props) {
+export default function OrderList({updateOrderCountAction, orderfoodlist=[], totalordercount=0, totalprice=0}: Props) {
+    const [foodpkey, setFoodpkey] = useState<number>(0);
+
+    const onOrderFoodClick = (foodpkey: number) => {
+        setFoodpkey(foodpkey);
+    }
+
     return (
         <div className='flex-[1] flex flex-col h-[1rem] sm:h-[15rem] md:h-[15rem] lg:h-[20rem] xl:h-[25rem] bg-white rounded-xl p-1'>
             <div className='flex flex-[2] justify-between items-center bg-gray-900 rounded-t-xl'>
@@ -18,21 +30,37 @@ export default function OrderList({orderfoodlist=[]}: Props) {
                 {orderfoodlist.map((food, index) => (
                     <button
                         key={index}
-                        className='flex hover:bg-white'
-                        onClick={() => {console.log('주문내역 클릭')}}
+                        className={`flex ${food.foodpkey === foodpkey ? 'bg-gray-400' : ''}`}
+                        onClick={() => onOrderFoodClick(food.foodpkey)}
                     >
                         <p className='flex-[1] text-center text-lg'>{index+1}</p>
                         <p className='flex-[3] text-center text-lg'>{food.foodname}</p>
-                        <p className='flex-[1] text-center text-lg'>{food.saleprice}</p>
-                        <p className='flex-[1] text-center text-lg'>{food.ordercount}</p>
-                        <p className='flex-[2] text-center text-lg'>{food.totalprice}</p>
+                        <p className='flex-[1] text-center text-lg'>{food.saleprice.toLocaleString()}</p>
+                        <p className='flex-[1] text-center text-lg'>{food.ordercount.toLocaleString()}</p>
+                        <p className='flex-[2] text-center text-lg'>{food.totalprice.toLocaleString()}</p>
                     </button>
                 ))}
             </div>
             <div className='flex flex-[2] justify-between items-center bg-gray-900 rounded-b-xl'>
                 <p className='flex-[5] text-center text-orange-300 font-bold text-lg'>합계</p>
-                <p className='flex-[1] text-center text-orange-300 font-bold text-lg'>6</p>
-                <p className='flex-[2] text-center text-orange-300 font-bold text-lg'>48000</p>
+                <p className='flex-[1] text-center text-orange-300 font-bold text-lg'>{totalordercount.toLocaleString()}</p>
+                <p className='flex-[2] text-center text-orange-300 font-bold text-lg'>{totalprice.toLocaleString()}</p>
+            </div>
+            <div className='grid grid-cols-2 gap-2 p-1'>
+                <button
+                    className='flex justify-center items-center bg-gray-400 rounded-2xl'
+                    onClick={() => updateOrderCountAction(foodpkey, 'plus')}
+                >
+                    <Plus/>
+                </button>
+                <button
+                    className='flex justify-center items-center bg-gray-400 rounded-2xl'
+                    onClick={() => updateOrderCountAction(foodpkey, 'minus')}
+                >
+                    <Minus/>
+                </button>
+                {/*<button className='flex justify-center items-center'><ChevronUp/></button>*/}
+                {/*<button className='flex justify-center items-center'><ChevronDown/></button>*/}
             </div>
         </div>
     )

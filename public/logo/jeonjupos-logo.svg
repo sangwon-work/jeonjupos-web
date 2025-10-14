@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1200" height="400" viewBox="0 0 1200 400" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">전주 손칼국수 로고</title>
+  <desc id="desc">POS 단말기 아이콘과 한글 텍스트로 구성된 미니멀 로고</desc>
+
+  <!-- Styles: use currentColor so you can control color via CSS (e.g., class="text-white") -->
+  <style>
+    .logo-stroke { stroke: currentColor; stroke-width: 16; stroke-linecap: round; stroke-linejoin: round; }
+    .logo-fill { fill: currentColor; }
+    .text { font-family: "Noto Sans KR", "Pretendard", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif; font-weight: 900; }
+  </style>
+
+  <!-- POS terminal icon (left) -->
+  <g transform="translate(60,40) scale(1)">
+    <!-- Body -->
+    <rect x="0" y="40" rx="36" ry="36" width="320" height="280" class="logo-stroke"/>
+    <!-- Screen -->
+    <rect x="40" y="80" width="240" height="90" rx="16" ry="16" class="logo-stroke"/>
+    <!-- Keypad (3x3 + 1) -->
+    <rect x="60" y="190" width="50" height="50" rx="12" ry="12" class="logo-stroke"/>
+    <rect x="135" y="190" width="50" height="50" rx="12" ry="12" class="logo-stroke"/>
+    <rect x="210" y="190" width="50" height="50" rx="12" ry="12" class="logo-stroke"/>
+
+    <rect x="60" y="255" width="50" height="50" rx="12" ry="12" class="logo-stroke"/>
+    <rect x="135" y="255" width="50" height="50" rx="12" ry="12" class="logo-stroke"/>
+    <rect x="210" y="255" width="50" height="50" rx="12" ry="12" class="logo-stroke"/>
+
+    <rect x="60" y="320" width="125" height="50" rx="12" ry="12" class="logo-stroke"/>
+    <rect x="210" y="320" width="50" height="50" rx="12" ry="12" class="logo-stroke"/>
+
+    <!-- Paper slot top -->
+    <path d="M240 20 h-200 a20 20 0 0 0 -20 20 v0 a0 0 0 0 0 0 0 h240 a20 20 0 0 0 20 -20 v0 a0 0 0 0 0 -40 0 z" class="logo-stroke" />
+    <!-- Side swiper -->
+    <rect x="320" y="120" width="40" height="160" rx="12" ry="12" class="logo-stroke"/>
+  </g>
+
+  <!-- Text (right) -->
+  <g transform="translate(440,230)">
+    <text class="logo-fill text" font-size="140">전주 손칼국수</text>
+  </g>
+</svg>
