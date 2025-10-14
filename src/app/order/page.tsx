@@ -19,6 +19,10 @@ export default function OrderPage() {
         console.log('주문 버튼');
     }
 
+    const handleFoodAction = (foodpkey: number) => {
+        console.log('메뉴 클릭')
+    }
+
     useEffect(() => {
         // TODO 주문서 상세 및 주문상품 목록 조회
         console.log(storetablepkey);
@@ -254,7 +258,7 @@ export default function OrderPage() {
                 </div>
             </div>
             <div className='flex flex-col flex-[4] gap-2'>
-                <CategoryMenuList/>
+                <CategoryMenuList handleFoodAction={handleFoodAction}/>
                 <ActionButtons handleOrder={handleOrder}/>
             </div>
         </div>
