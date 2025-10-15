@@ -7,10 +7,11 @@ import KeyPad from "@/components/order/KeyPad";
 import PaymentSummary from "@/components/order/PaymentSummary";
 import CategoryMenuList from "@/components/order/CategoryMenuList";
 import ActionButtons from "@/components/order/ActionButtons";
-import {getOrderFoodList, getOrderInfo} from "@/lib/api/services/order-api";
+import {getOrderFoodList, getOrderInfo, postFirstOrder, postReOrder} from "@/lib/api/services/order-api";
 
 export default function OrderPage() {
     const searchParams = useSearchParams();
+    const [orderinfo, setOrderinfo] = useState<any>(null);
     const [orderfoodlist, setOrderfoodlist] = useState<any>([]);
     const [totalordercount, setTotalordercount] = useState(0);
     const [totalprice, setTotalprice] = useState(0);
@@ -24,14 +25,51 @@ export default function OrderPage() {
 
     useEffect(() => {
         // 주문서 상세 및 주문상품 목록 조회
-        console.log(storetablepkey);
         fetchOrderInfo();
     }, [])
 
     // 주문버튼 클릭
     const handleOrder = async () => {
-        console.log('주문 버튼');
-        router.replace('/store-table')
+        if (orderinfo === null) {
+            // 첫 주문
+            try {
+                const req_orderfoodlist = orderfoodlist.map((orderfood: any) => {
+                    return {
+                        orderfoodpkey: orderfood.orderfoodpkey,
+                        foodpkey: orderfood.foodpkey,
+                        ordercount: orderfood.ordercount,
+                    }
+                })
+                const response = await postFirstOrder(storetablepkey, req_orderfoodlist);
+                if (response.status === 200 && response.data.rescode === '0000') {
+                    router.replace('/store-table');
+                } else {
+                    alert(response.data.message);
+                }
+            } catch (err) {
+                console.error(err);
+            }
+        } else {
+            // 재 주문
+            try {
+                const req_orderfoodlist = orderfoodlist.map((orderfood: any) => {
+                    return {
+                        orderfoodpkey: orderfood.orderfoodpkey,
+                        foodpkey: orderfood.foodpkey,
+                        ordercount: orderfood.ordercount,
+                    }
+                })
+                const response = await postReOrder(orderinfo.orderinfopkey, req_orderfoodlist);
+                if (response.status === 200 && response.data.rescode === '0000') {
+                    router.replace('/store-table');
+                } else {
+                    alert(response.data.message);
+                }
+            } catch (err) {
+                console.error(err);
+            }
+        }
+        // router.replace('/store-table')
     }
 
     // 메뉴 추가
@@ -120,6 +158,7 @@ export default function OrderPage() {
             const response = await getOrderInfo(storetablepkey);
             if (response.status === 200 && response.data.rescode === '0000') {
                 const { orderinfo } = response.data.body;
+                setOrderinfo(orderinfo);
                 if (orderinfo !== null) {
                     setOrderprice(orderinfo.orderprice);
                     setPayprice(orderinfo.payprice);
@@ -133,7 +172,6 @@ export default function OrderPage() {
                     return;
                 }
             }
-            console.log(response);
         } catch (error) {
             console.log(error);
         }
