@@ -15,7 +15,6 @@ export default function StoreTable() {
     const fetchStoreTable = async () => {
         try {
             const response = await getStoreTable();
-            console.log(response);
             setStoretablelist(response.data.body.storetableset);
         } catch (error) {
             console.log(error);
