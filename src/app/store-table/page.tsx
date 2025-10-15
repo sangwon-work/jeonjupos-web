@@ -1,11 +1,13 @@
 'use client'
 
 import {useEffect, useState} from "react";
-import TableCard from "@/components/store-table/TableCard";
 import {getStoreTable} from "@/lib/api/services/store-table-api";
+import {useRouter} from "next/navigation";
 
 export default function StoreTable() {
     const [storetablelist, setStoretablelist] = useState<any>([]);
+
+    const router = useRouter();
 
     useEffect(() => {
         // 테이블 목록 조회
@@ -21,16 +23,37 @@ export default function StoreTable() {
         }
     }
 
+    const handleOrderPage = (storetablepkey: number) => {
+        router.push(`/order?storetablepkey=${storetablepkey}`);
+    }
+
     return (
         <div className='h-[calc(100dvh-5.5rem)] p-4'>
             <div className='h-[calc(100dvh-7.5rem)]'>
-                <div className="grid grid-cols-5 grid-rows-8 auto-rows-[10rem] gap-4 w-full h-[calc(100dvh-7.5rem)] p-4">
+                <div className="grid grid-cols-5 grid-rows-8 items-stretch gap-2 w-full h-[calc(100dvh-7.5rem)] p-4">
                     {storetablelist.map((storetable: any, index: number) => (
-                        <TableCard
+                        <div
                             key={index}
-                            className={`col-start-${storetable.colstart} col-end-${storetable.colend} row-start-${storetable.rowstart} row-end-${storetable.rowend}`}
-                            storetable={storetable}
-                        />
+                            style={
+                                {
+                                    '--gr': `${storetable.rowstart} / ${storetable.rowend}`,
+                                    '--gc': `${storetable.colstart} / ${storetable.colend}`,
+                                } as React.CSSProperties
+                            }
+                            className="[grid-row:var(--gr)] [grid-column:var(--gc)] h-full"
+                            onClick={() => handleOrderPage(storetable.storetablepkey)}
+                        >
+                            <div className="bg-blue-200 p-4 rounded h-full flex flex-col justify-between">
+                                <div className='flex justify-between'>
+                                    <p className='font-bold text-xl'>{storetable.label}</p>
+                                    <p>{storetable.totalorderprice > 0 ? '식사중' : ''}</p>
+                                </div>
+                                <div className='flex justify-between'>
+                                    <p className=''>주문금액</p>
+                                    <p className='text-end'>{storetable.totalorderprice.toLocaleString()}</p>
+                                </div>
+                            </div>
+                        </div>
                     ))}
                 </div>
             </div>
