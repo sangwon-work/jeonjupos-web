@@ -1,6 +1,6 @@
 'use client';
-import { useState } from 'react';
-import { postLogin } from "@/lib/api/services/user-api";
+import {useEffect, useState} from 'react';
+import {postAccessTokenValidation, postLogin} from "@/lib/api/services/user-api";
 import {useRouter} from "next/navigation";
 
 export default function LoginPage() {
@@ -13,6 +13,25 @@ export default function LoginPage() {
     const isEmailValid = /^\S+@\S+\.\S+$/.test(email);
 
     const router = useRouter();
+
+    useEffect(() => {
+        handleAccessTokenValidation();
+    }, []);
+
+    // 토큰 검증
+    const handleAccessTokenValidation = async () => {
+        try {
+            const response = await postAccessTokenValidation();
+            console.log(response);
+            if (response.status === 200 && response.data.rescode === '0000') {
+                router.replace("/store-table");
+            } else {
+                setError('로그인에 실패했어요. 다시 시도해 주세요.');
+            }
+        } catch (err: any) {
+            setError(err?.message || '로그인에 실패했어요. 다시 시도해 주세요.');
+        }
+    }
 
     const onSubmit = async (e?: React.FormEvent) => {
         e?.preventDefault();
@@ -91,7 +110,7 @@ export default function LoginPage() {
                                     id="password"
                                     type={showPw ? 'text' : 'password'}
                                     autoComplete="current-password"
-                                    placeholder="8자 이상"
+                                    placeholder="4자 이상"
                                     className="block w-full rounded-xl border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 px-3 py-2.5 pr-12 text-gray-900 dark:text-gray-100 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
