@@ -21,7 +21,6 @@ export default function CategoryMenuList({ handleFoodAction }: Props) {
             const response = await getFoodCategoryList();
             setFoodcategorylist(response.data.body.foodcategorylist);
             const getFoodResponse = await getFoodList(response.data.body.foodcategorylist[0].foodcategorypkey);
-            console.log(getFoodResponse.data.body.foodlist);
             setFoodlist(getFoodResponse.data.body.foodlist);
         } catch (error) {
             console.log(error);

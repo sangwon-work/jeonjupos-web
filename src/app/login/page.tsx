@@ -15,7 +15,6 @@ export default function LoginPage() {
     const router = useRouter();
 
     const onSubmit = async (e?: React.FormEvent) => {
-        console.log('로그인 요청11');
         e?.preventDefault();
         setError(null);
 
@@ -27,9 +26,7 @@ export default function LoginPage() {
         try {
             setSubmitting(true);
             // await handleLogin(email, password);
-            console.log('로그인 요청');
             const response = await postLogin(email, password);
-            console.log(response);
             if (response.status === 200 && response.data.rescode === '0000') {
                 localStorage.setItem("accesstoken", response.data.body.accesstoken);
                 router.replace("/store-table");
