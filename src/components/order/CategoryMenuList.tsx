@@ -21,6 +21,7 @@ export default function CategoryMenuList({ handleFoodAction }: Props) {
             const response = await getFoodCategoryList();
             setFoodcategorylist(response.data.body.foodcategorylist);
             const getFoodResponse = await getFoodList(response.data.body.foodcategorylist[0].foodcategorypkey);
+            console.log(getFoodResponse.data.body.foodlist);
             setFoodlist(getFoodResponse.data.body.foodlist);
         } catch (error) {
             console.log(error);
@@ -41,25 +42,33 @@ export default function CategoryMenuList({ handleFoodAction }: Props) {
             <div className='flex flex-col gap-1 h-full'>
                 <div className='flex-[2] grid grid-cols-5 grid-rows-2 rounded-xl bg-gray-400 w-full gap-2 p-1'>
                     {foodcategorylist.map((item, index) => (
-                        <div
+                        <button
                             key={index}
-                            className='flex items-center justify-center bg-white rounded-2xl active:bg-gray-900 active:text-orange-400'
+                            className='flex items-center justify-center bg-white rounded-2xl shadow-md hover:shadow-lg transition-all duration-150 active:scale-95 active:bg-gray-900 active:text-orange-400 '
                             onClick={() => handelCategoryClick(item.foodcategorypkey)}
                         >
-                            <p>{item.foodcategoryname}</p>
-                        </div>
+                            <p className='font-bold text-md'>{item.foodcategoryname}</p>
+                        </button>
                     ))}
                 </div>
                 <div className='flex-[6] grid grid-cols-5 grid-rows-6 rounded-xl bg-gray-400 w-full gap-2 p-1'>
                     {foodlist.map((item, index) => (
-                        <div
+                        <button
                             key={index}
-                            className='flex flex-col items-center justify-center bg-white rounded-2xl active:bg-gray-900 active:text-orange-400'
+                            className='flex flex-col items-center justify-center bg-white rounded-2xl shadow-md hover:shadow-lg transition-all duration-150 active:scale-95 active:bg-gray-900 active:text-orange-400'
+                            disabled={item.soldoutyn === 'Y'}
                             onClick={() => handleFoodAction(item.foodpkey, item.foodname, item.saleprice)}
                         >
-                            <p>{item.foodname}</p>
+                            {item.soldoutyn === 'N' ? (
+                                <p className='font-bold'>{item.foodname}</p>
+                            ) : (
+                                <div>
+                                    <p className='font-bold line-through text-gray-400'>{item.foodname}</p>
+                                    <p>품절</p>
+                                </div>
+                            )}
                             <p>{item.saleprice.toLocaleString()}</p>
-                        </div>
+                        </button>
                     ))}
                 </div>
             </div>
