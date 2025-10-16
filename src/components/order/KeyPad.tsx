@@ -25,11 +25,11 @@ export default function KeyPad({ onEnterKeyClickAction }: Props) {
         setInputValue(0);
     }
     return (
-        <div className='flex-[1] bg-white rounded-2xl p-1 flex flex-col'>
-            <div className='flex-[1] rounded-2xl bg-gray-400 flex justify-end items-center'>
+        <div className='flex-[1] bg-white rounded-2xl p-1 grid grid-rows-8'>
+            <div className='rounded-2xl bg-gray-400 flex justify-end items-center row-start-1 row-end-2'>
                 <p className='p-2 font-bold text-lg'>{inputValue.toLocaleString()}</p>
             </div>
-            <div className="flex-[7] grid grid-cols-3 grid-rows-5 gap-1 p-1">
+            <div className="row-start-2 row-end-9 grid grid-cols-3 grid-rows-5 gap-1 p-1">
                 <button className={`${btnBase}`} onClick={() => KeyPadOnClick('7')}>7</button>
                 <button className={`${btnBase}`} onClick={() => KeyPadOnClick('8')}>8</button>
                 <button className={`${btnBase}`} onClick={() => KeyPadOnClick('9')}>9</button>

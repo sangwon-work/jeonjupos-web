@@ -222,7 +222,6 @@ export default function OrderPage() {
 
         try {
             const response = await postPayment(orderinfo.orderinfopkey, paytype, payamount);
-            console.log(response);
             if (response.status === 200 && response.data.rescode === '0000') {
                 router.replace('/store-table');
             } else {

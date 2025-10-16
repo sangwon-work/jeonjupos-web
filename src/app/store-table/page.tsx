@@ -49,8 +49,8 @@ export default function StoreTable() {
                                     <p>{storetable.totalorderprice > 0 ? '식사중' : ''}</p>
                                 </div>
                                 <div className='flex justify-between'>
-                                    <p className=''>주문금액</p>
-                                    <p className='text-end'>{storetable.totalorderprice.toLocaleString()}</p>
+                                    <p className='text-sm'>주문금액</p>
+                                    <p className=''>{storetable.totalorderprice.toLocaleString()}</p>
                                 </div>
                             </div>
                         </div>
