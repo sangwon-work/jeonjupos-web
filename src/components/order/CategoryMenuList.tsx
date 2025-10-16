@@ -37,7 +37,7 @@ export default function CategoryMenuList({ handleFoodAction }: Props) {
     }
 
     return (
-        <div className='flex-[4] rounded-2xl bg-white p-1'>
+        <div className='row-start-1 row-end-8 rounded-2xl bg-white p-1'>
             <div className='flex flex-col gap-1 h-full'>
                 <div className='flex-[2] grid grid-cols-5 grid-rows-2 rounded-xl bg-gray-400 w-full gap-2 p-1'>
                     {foodcategorylist.map((item, index) => (
@@ -63,7 +63,7 @@ export default function CategoryMenuList({ handleFoodAction }: Props) {
                             ) : (
                                 <div>
                                     <p className='font-bold line-through text-gray-400'>{item.foodname}</p>
-                                    <p>품절</p>
+                                    <p className='text-[13px]'>품절</p>
                                 </div>
                             )}
                             <p>{item.saleprice.toLocaleString()}</p>

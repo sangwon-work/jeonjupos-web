@@ -240,14 +240,14 @@ export default function OrderPage() {
 
     return (
         <div className='h-[calc(100dvh-5.5rem)] p-4 flex gap-2'>
-            <div className='flex-[3] flex flex-col gap-2'>
+            <div className='flex-[3] grid grid-rows-10 gap-2'>
                 <OrderList updateOrderCountAction={updateOrderCountAction} orderfoodlist={orderfoodlist} totalordercount={totalordercount} totalprice={totalprice}/>
-                <div className='flex gap-2 h-[1rem] sm:h-[15rem] md:h-[15rem] lg:h-[23rem] xl:h-[28rem]'>
+                <div className='flex gap-2 row-start-5 row-end-11'>
                     <PaymentSummary inputValue={inputValue} orderprice={orderprice} payprice={payprice}/>
                     <KeyPad onEnterKeyClickAction={onEnterKeyClickAction}/>
                 </div>
             </div>
-            <div className='flex flex-col flex-[4] gap-2'>
+            <div className='flex-[4] gap-2 grid gird-rows-10'>
                 <CategoryMenuList handleFoodAction={handleFoodAction}/>
                 <ActionButtons
                     handleOrder={handleOrder}

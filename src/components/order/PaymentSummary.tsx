@@ -7,7 +7,7 @@ type Props = {
 export default function PaymentSummary({inputValue = 0, orderprice=0, payprice=0}: Props) {
     return (
         <div className='flex-[1] bg-white rounded-2xl p-1'>
-            <div className='flex flex-col h-full bg-[linear-gradient(to_bottom,#6a7282,#333333,#6a7282)] rounded-2xl'>
+            <div className='grid gird-rows-6 h-full bg-[linear-gradient(to_bottom,#6a7282,#333333,#6a7282)] rounded-2xl'>
                 <div className='flex flex-[1] justify-center items-center lg:p-1 xl:p-5'>
                     <p className='font-bold xl:text-2xl lg:text-lg text-gray-200'>결제정보</p>
                 </div>

@@ -18,7 +18,7 @@ export default function OrderList({updateOrderCountAction, orderfoodlist=[], tot
     }
 
     return (
-        <div className='flex-[1] flex flex-col h-[1rem] sm:h-[15rem] md:h-[15rem] lg:h-[20rem] xl:h-[25rem] bg-white rounded-xl p-1'>
+        <div className='row-start-1 row-end-5 flex flex-col bg-white rounded-xl p-1'>
             <div className='flex flex-[2] justify-between items-center bg-gray-900 rounded-t-xl'>
                 <p className='flex-[1] text-center text-orange-300 font-bold text-lg'>번호</p>
                 <p className='flex-[3] text-center text-orange-300 font-bold text-lg'>메뉴명</p>
