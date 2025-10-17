@@ -206,6 +206,10 @@ export default function OrderPage(
         setInputValue(value);
     }
 
+    const onCancelKeyClickAction = () => {
+        setInputValue(0);
+    }
+
     // 결제
     const onPayAction = async (paytype: 'CASH' | 'CARD') => {
         // 재 주문
@@ -249,7 +253,7 @@ export default function OrderPage(
             } else {
                 setPayon(!payon);
                 setInputValue(0);
-                alert(response.data.message);
+                return;
             }
         } catch (error) {
             console.error(error);
@@ -266,7 +270,7 @@ export default function OrderPage(
                 <OrderList updateOrderCountAction={updateOrderCountAction} orderfoodlist={orderfoodlist} totalordercount={totalordercount} totalprice={totalprice}/>
                 <div className='flex gap-2 row-start-5 row-end-11'>
                     <PaymentSummary inputValue={inputValue} orderprice={orderprice} payprice={payprice}/>
-                    <KeyPad onEnterKeyClickAction={onEnterKeyClickAction}/>
+                    <KeyPad onEnterKeyClickAction={onEnterKeyClickAction} onCancelKeyClickAction={onCancelKeyClickAction}/>
                 </div>
             </div>
             <div className='flex-[4] grid grid-rows-10 gap-2'>

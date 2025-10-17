@@ -6,9 +6,10 @@ const btnBase = `p-4 flex justify-center items-center rounded-xl bg-[linear-grad
 
 type Props = {
     onEnterKeyClickAction: (value: number) => void;
+    onCancelKeyClickAction: () => void;
 }
 
-export default function KeyPad({ onEnterKeyClickAction }: Props) {
+export default function KeyPad({ onEnterKeyClickAction, onCancelKeyClickAction }: Props) {
     const [inputValue, setInputValue] = useState<number>(0);
 
     const KeyPadOnClick = (v: string) => {
@@ -17,6 +18,7 @@ export default function KeyPad({ onEnterKeyClickAction }: Props) {
     }
 
     const cancelOnClick = () => {
+        onCancelKeyClickAction();
         setInputValue(0);
     }
 
