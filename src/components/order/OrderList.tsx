@@ -47,21 +47,19 @@ export default function OrderList({updateOrderCountAction, orderfoodlist=[], tot
                 <p className='flex-[1] text-center text-orange-300 font-bold text-lg'>{totalordercount.toLocaleString()}</p>
                 <p className='flex-[2] text-center text-orange-300 font-bold text-lg'>{totalprice.toLocaleString()}</p>
             </div>
-            <div className='grid grid-cols-2 gap-2 p-1'>
+            <div className='grid grid-cols-2 gap-2 pt-1'>
                 <button
-                    className='flex justify-center items-center bg-gray-400 rounded-2xl'
+                    className='flex justify-center items-center bg-gray-400 rounded-2xl bg-[linear-gradient(to_bottom,#6a7282,#333333,#6a7282)] active:bg-[linear-gradient(to_bottom,#818899,#444444,#818899)] text-white'
                     onClick={() => updateOrderCountAction(foodpkey, 'plus')}
                 >
                     <Plus/>
                 </button>
                 <button
-                    className='flex justify-center items-center bg-gray-400 rounded-2xl'
+                    className='flex justify-center items-center bg-gray-400 rounded-2xl bg-[linear-gradient(to_bottom,#6a7282,#333333,#6a7282)] active:bg-[linear-gradient(to_bottom,#818899,#444444,#818899)] text-white'
                     onClick={() => updateOrderCountAction(foodpkey, 'minus')}
                 >
                     <Minus/>
                 </button>
-                {/*<button className='flex justify-center items-center'><ChevronUp/></button>*/}
-                {/*<button className='flex justify-center items-center'><ChevronDown/></button>*/}
             </div>
         </div>
     )
