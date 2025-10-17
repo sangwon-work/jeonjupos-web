@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import {useRouter} from "next/navigation";
 
 type Props = {
     timeZone?: string;
@@ -10,6 +11,9 @@ export default function TimeClock({ timeZone = 'Asia/Seoul' }: Props) {
     const [time, setTime] = useState<string>('');
     const timeoutRef = useRef<NodeJS.Timeout | null>(null);
     const intervalRef = useRef<NodeJS.Timeout | null>(null);
+    const [clickCount, setClickCount] = useState<number>(0);
+
+    const router = useRouter();
 
     useEffect(() => {
         const fmt = new Intl.DateTimeFormat('ko-KR', {
@@ -42,5 +46,13 @@ export default function TimeClock({ timeZone = 'Asia/Seoul' }: Props) {
 
     if (!time) return null;
 
-    return <p className='text-orange-400 text-[1.5rem]'>{time}</p>;
+    const timeClickAction = () => {
+        setClickCount(clickCount + 1);
+
+        if (clickCount === 4) {
+            router.replace('/login');
+        }
+    }
+
+    return <p className='text-orange-400 text-[1.5rem]' onClick={() => {timeClickAction()}}>{time}</p>;
 }

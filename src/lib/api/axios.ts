@@ -5,7 +5,7 @@ const __DEV__: boolean = true;
 let baseURL: string = 'https://jeonjupos.kr';
 
 if (__DEV__) {
-    baseURL = 'http://172.30.1.72:3001';
+    baseURL = 'http://172.30.1.14:3001';
 }
 
 export const authInstance = axios.create({
