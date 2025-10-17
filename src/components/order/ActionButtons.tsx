@@ -5,14 +5,16 @@ type ChildProps = {
     onCancelPayAction: () => void;
 };
 
+const btnBase = `flex justify-center items-center bg-white rounded-2xl text-black`;
+
 export default function ActionButtons({ handleOrder, onPayAction, onCancelPayAction }: ChildProps) {
     return (
-        <div className='row-start-8 row-end-11 rounded-2xl bg-white p-1'>
+        <div className='row-start-9 row-end-11 rounded-2xl bg-white p-1'>
             <div className='grid grid-cols-5 grid-rows-2 p-1 bg-gray-400 h-full rounded-2xl gap-1'>
-                <button className='flex justify-center items-center bg-white rounded-2xl' onClick={() => handleOrder()}>주문</button>
-                <button className='flex justify-center items-center bg-white rounded-2xl' onClick={() => {onPayAction('CASH')}}>현금결제</button>
-                <button className='flex justify-center items-center bg-white rounded-2xl' onClick={() => {onPayAction('CARD')}}>카드결제</button>
-                <button className='flex justify-center items-center bg-white rounded-2xl' onClick={() => {onCancelPayAction()}}>취소</button>
+                <button className={`${btnBase}`} onClick={() => handleOrder()}>주문</button>
+                <button className={`${btnBase}`} onClick={() => {onPayAction('CASH')}}>현금결제</button>
+                <button className={`${btnBase}`} onClick={() => {onPayAction('CARD')}}>카드결제</button>
+                <button className={`${btnBase}`} onClick={() => {onCancelPayAction()}}>취소</button>
             </div>
         </div>
     )
