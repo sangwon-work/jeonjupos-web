@@ -1,7 +1,7 @@
 'use client'
 
 import {useEffect, useState} from "react";
-import {useRouter, useSearchParams} from "next/navigation";
+import {useRouter} from "next/navigation";
 import OrderList from "@/components/order/OrderList";
 import KeyPad from "@/components/order/KeyPad";
 import PaymentSummary from "@/components/order/PaymentSummary";
@@ -9,12 +9,24 @@ import CategoryMenuList from "@/components/order/CategoryMenuList";
 import ActionButtons from "@/components/order/ActionButtons";
 import {getOrderFoodList, getOrderInfo, postFirstOrder, postReOrder} from "@/lib/api/services/order-api";
 import {postPayment} from "@/lib/api/services/payment-api";
+import {OrderInfo, OrderFoodList} from '@/types';
 
-export default function OrderPage() {
-    const searchParams = useSearchParams();
-    const [orderinfo, setOrderinfo] = useState<any>(null);
-    const [orderfoodlist, setOrderfoodlist] = useState<any>([]);
-    const [totalordercount, setTotalordercount] = useState(0);
+export default function OrderPage(
+    {searchParams}: { searchParams: { storetablepkey?: string }; }
+) {
+    // const searchParams = useSearchParams();
+    const [orderinfo, setOrderinfo] = useState<OrderInfo>({
+        orderinfopkey: 0,
+        orderstatus: 'PAID',
+        servicetype: "DINEIN",
+        address: '',
+        orderprice: 0,
+        cardprice: 0,
+        payprice: 0,
+        regdate: '0000-00-00 00:00:00',
+    });
+    const [orderfoodlist, setOrderfoodlist] = useState<OrderFoodList[]>([]);
+    const [totalordercount, setTotalordercount] = useState<number>(0);
     const [totalprice, setTotalprice] = useState(0);
     const [inputValue, setInputValue] = useState<number>(0);
     const [orderprice, setOrderprice] = useState<number>(0);
@@ -23,11 +35,12 @@ export default function OrderPage() {
 
     const router = useRouter();
 
-    const storetablepkey: number = Number(searchParams.get("storetablepkey") ?? 0);
+    const storetablepkey = Number(searchParams.storetablepkey ?? 0);
 
     useEffect(() => {
         // 주문서 상세 및 주문상품 목록 조회
         fetchOrderInfo();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [payon])
 
     // 주문버튼 클릭
@@ -35,7 +48,7 @@ export default function OrderPage() {
         if (orderinfo === null) {
             // 첫 주문
             try {
-                const req_orderfoodlist = orderfoodlist.map((orderfood: any) => {
+                const req_orderfoodlist = orderfoodlist.map((orderfood: OrderFoodList) => {
                     return {
                         orderfoodpkey: orderfood.orderfoodpkey,
                         foodpkey: orderfood.foodpkey,
@@ -54,7 +67,7 @@ export default function OrderPage() {
         } else {
             // 재 주문
             try {
-                const req_orderfoodlist = orderfoodlist.map((orderfood: any) => {
+                const req_orderfoodlist = orderfoodlist.map((orderfood: OrderFoodList) => {
                     return {
                         orderfoodpkey: orderfood.orderfoodpkey,
                         foodpkey: orderfood.foodpkey,
@@ -79,9 +92,9 @@ export default function OrderPage() {
         setTotalordercount(totalordercount + 1);
         setTotalprice(totalprice + saleprice);
 
-        setOrderfoodlist((prev: any) => {
+        setOrderfoodlist((prev: OrderFoodList[]) => {
             const idx = prev.findIndex(
-                (of: any) => of.foodpkey === foodpkey
+                (of: OrderFoodList) => of.foodpkey === foodpkey
             );
 
             if (idx > -1) {
@@ -117,9 +130,9 @@ export default function OrderPage() {
 
     // 주문수량 변경
     const updateOrderCountAction = (foodpkey: number, type: 'plus' | 'minus') => {
-        setOrderfoodlist((prev: any) => {
+        setOrderfoodlist((prev: OrderFoodList[]) => {
             const idx = prev.findIndex(
-                (of: any) => of.foodpkey === foodpkey
+                (of: OrderFoodList) => of.foodpkey === foodpkey
             );
 
             if (idx > -1) {
@@ -150,6 +163,8 @@ export default function OrderPage() {
                 } else {
                     return [...prev];
                 }
+            } else {
+                return prev;
             }
         });
     }
@@ -188,7 +203,7 @@ export default function OrderPage() {
     const onPayAction = async (paytype: 'CASH' | 'CARD') => {
         // 재 주문
         try {
-            const req_orderfoodlist = orderfoodlist.map((orderfood: any) => {
+            const req_orderfoodlist = orderfoodlist.map((orderfood: OrderFoodList) => {
                 return {
                     orderfoodpkey: orderfood.orderfoodpkey,
                     foodpkey: orderfood.foodpkey,
@@ -208,7 +223,7 @@ export default function OrderPage() {
         }
 
         // 받을 금액 orderprice - payprice;
-        let totaldueamount: number = orderprice - payprice;
+        const totaldueamount: number = orderprice - payprice;
         let payamount: number;
         if (inputValue === 0) {
             payamount = totaldueamount;

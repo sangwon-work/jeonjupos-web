@@ -8,13 +8,10 @@ import { AxiosError } from 'axios';
 export default function Home() {
     const router = useRouter();
 
-    useEffect(() => {
-        router.replace("/store-table");
-    }, [])
-
     // 로그인 여부 체크
     useEffect(() => {
         tokenValidation();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const tokenValidation = async () => {

@@ -5,7 +5,7 @@ const __DEV__: boolean = true;
 let baseURL: string = 'https://jeonjupos.kr';
 
 if (__DEV__) {
-    baseURL = 'http://127.0.0.1:3001';
+    baseURL = 'http://172.30.1.72:3001';
 }
 
 export const authInstance = axios.create({
@@ -22,17 +22,17 @@ function getAccessToken() {
     return typeof window !== "undefined" ? localStorage.getItem("accesstoken") : null;
 }
 
-function setAccessToken(token: string) {
-    if (typeof window !== "undefined") {
-        localStorage.setItem("accesstoken", token);
-    }
-}
-
-function clearAccessToken() {
-    if (typeof window !== "undefined") {
-        localStorage.removeItem("accesstoken");
-    }
-}
+// function setAccessToken(token: string) {
+//     if (typeof window !== "undefined") {
+//         localStorage.setItem("accesstoken", token);
+//     }
+// }
+//
+// function clearAccessToken() {
+//     if (typeof window !== "undefined") {
+//         localStorage.removeItem("accesstoken");
+//     }
+// }
 
 
 function attachAuthHeader(config: AxiosRequestConfig) {

@@ -16,20 +16,24 @@ export default function LoginPage() {
 
     useEffect(() => {
         handleAccessTokenValidation();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     // 토큰 검증
     const handleAccessTokenValidation = async () => {
         try {
             const response = await postAccessTokenValidation();
-            console.log(response);
             if (response.status === 200 && response.data.rescode === '0000') {
                 router.replace("/store-table");
             } else {
                 setError('로그인에 실패했어요. 다시 시도해 주세요.');
             }
-        } catch (err: any) {
-            setError(err?.message || '로그인에 실패했어요. 다시 시도해 주세요.');
+        } catch (err: unknown) {
+            if (err instanceof Error) {
+                setError(err.message);
+            } else {
+                setError('로그인에 실패했어요. 다시 시도해 주세요.');
+            }
         }
     }
 
@@ -54,8 +58,12 @@ export default function LoginPage() {
                 setError(response.data.message);
                 return;
             }
-        } catch (err: any) {
-            setError(err?.message || '로그인에 실패했어요. 다시 시도해 주세요.');
+        } catch (err: unknown) {
+            if (err instanceof Error) {
+                setError(err.message);
+            } else {
+                setError('로그인에 실패했어요. 다시 시도해 주세요.');
+            }
         } finally {
             setSubmitting(false);
         }

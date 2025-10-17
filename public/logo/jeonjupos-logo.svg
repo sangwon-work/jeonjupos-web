@@ -10,7 +10,7 @@
     .text { font-family: "Noto Sans KR", "Pretendard", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif; font-weight: 900; }
   </style>
 
-  <!-- POS terminal icon (left) -->
+  <!-- POS terminal icons (left) -->
   <g transform="translate(60,40) scale(1)">
     <!-- Body -->
     <rect x="0" y="40" rx="36" ry="36" width="320" height="280" class="logo-stroke"/>

@@ -28,9 +28,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko">
-        <head>
-            <link rel="manifest" href="/manifest.webmanifest" />
-        </head>
+    <head>
+        <link rel="manifest" href="/manifest.json" />
+        <title>전주 손칼국수 POS</title>
+    </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >

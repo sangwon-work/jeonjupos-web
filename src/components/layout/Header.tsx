@@ -24,6 +24,8 @@ export default function Header() {
         const formatted = `${year}-${month}-${day} (${dayOfWeek})`;
 
         setToday(formatted);
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return (

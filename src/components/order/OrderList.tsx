@@ -2,10 +2,11 @@
 
 import { useState } from 'react';
 import { Plus, Minus } from 'lucide-react';
+import { OrderFoodList } from "@/types";
 
 type Props = {
     updateOrderCountAction: (foodpkey: number, type: 'plus' | 'minus') => void;
-    orderfoodlist?: any[]
+    orderfoodlist?: OrderFoodList[]
     totalordercount?: number
     totalprice?: number
 }

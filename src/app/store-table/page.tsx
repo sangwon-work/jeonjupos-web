@@ -4,8 +4,23 @@ import {useEffect, useState} from "react";
 import {getStoreTable} from "@/lib/api/services/store-table-api";
 import {useRouter} from "next/navigation";
 
-export default function StoreTable() {
-    const [storetablelist, setStoretablelist] = useState<any>([]);
+type StoreTable = {
+    storetablepkey: number;
+    label: string;
+    colstart: number;
+    colend: number;
+    rowstart: number;
+    rowend: number;
+    totalorderprice: number;
+    regdate: string;
+    orderlist: {
+        foodname: string;
+        ordercount: number;
+    }[];
+}
+
+export default function StoreTablePage() {
+    const [storetablelist, setStoretablelist] = useState<StoreTable[]>([]);
 
     const router = useRouter();
 
@@ -31,7 +46,7 @@ export default function StoreTable() {
         <div className='h-[calc(100dvh-5.5rem)] p-4'>
             <div className='h-[calc(100dvh-7.5rem)]'>
                 <div className="grid grid-cols-5 grid-rows-8 items-stretch gap-2 w-full h-[calc(100dvh-7.5rem)] p-4">
-                    {storetablelist.map((storetable: any, index: number) => (
+                    {storetablelist.map((storetable: StoreTable, index: number) => (
                         <div
                             key={index}
                             style={
