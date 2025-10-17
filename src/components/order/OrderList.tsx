@@ -34,11 +34,11 @@ export default function OrderList({updateOrderCountAction, orderfoodlist=[], tot
                         className={`flex ${food.foodpkey === foodpkey ? 'bg-gray-400' : ''}`}
                         onClick={() => onOrderFoodClick(food.foodpkey)}
                     >
-                        <p className='flex-[1] text-center text-lg'>{index+1}</p>
-                        <p className='flex-[3] text-center text-lg'>{food.foodname}</p>
-                        <p className='flex-[1] text-center text-lg'>{food.saleprice.toLocaleString()}</p>
-                        <p className='flex-[1] text-center text-lg'>{food.ordercount.toLocaleString()}</p>
-                        <p className='flex-[2] text-center text-lg'>{food.totalprice.toLocaleString()}</p>
+                        <p className='flex-[1] text-center text-lg text-black'>{index+1}</p>
+                        <p className='flex-[3] text-center text-lg text-black'>{food.foodname}</p>
+                        <p className='flex-[1] text-center text-lg text-black'>{food.saleprice.toLocaleString()}</p>
+                        <p className='flex-[1] text-center text-lg text-black'>{food.ordercount.toLocaleString()}</p>
+                        <p className='flex-[2] text-center text-lg text-black'>{food.totalprice.toLocaleString()}</p>
                     </button>
                 ))}
             </div>

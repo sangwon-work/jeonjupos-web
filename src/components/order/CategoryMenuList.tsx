@@ -37,29 +37,29 @@ export default function CategoryMenuList({ handleFoodAction }: Props) {
     }
 
     return (
-        <div className='row-start-1 row-end-8 rounded-2xl bg-white p-1'>
-            <div className='flex flex-col gap-1 h-full'>
-                <div className='flex-[2] grid grid-cols-5 grid-rows-2 rounded-xl bg-gray-400 w-full gap-2 p-1'>
+        <div className='row-start-1 row-end-9 rounded-2xl bg-white p-1'>
+            <div className='grid grid-rows-10 gap-1 h-full'>
+                <div className='row-start-1 row-end-3 grid grid-cols-5 grid-rows-2 rounded-xl bg-gray-400 w-full gap-2 p-1'>
                     {foodcategorylist.map((item, index) => (
                         <button
                             key={index}
                             className='flex items-center justify-center bg-white rounded-2xl shadow-md hover:shadow-lg transition-all duration-150 active:scale-95 active:bg-gray-900 active:text-orange-400 '
                             onClick={() => handelCategoryClick(item.foodcategorypkey)}
                         >
-                            <p className='font-bold text-md'>{item.foodcategoryname}</p>
+                            <p className='font-bold text-md text-black'>{item.foodcategoryname}</p>
                         </button>
                     ))}
                 </div>
-                <div className='flex-[6] grid grid-cols-5 grid-rows-6 rounded-xl bg-gray-400 w-full gap-2 p-1'>
+                <div className='row-start-3 row-end-11 grid grid-cols-5 grid-rows-5 rounded-xl bg-gray-400 w-full gap-2 p-1'>
                     {foodlist.map((item, index) => (
                         <button
                             key={index}
-                            className='flex flex-col items-center justify-center bg-white rounded-2xl shadow-md hover:shadow-lg transition-all duration-150 active:scale-95 active:bg-gray-900 active:text-orange-400'
+                            className='flex flex-col items-center justify-center bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-150 active:scale-95 active:bg-gray-900 active:text-orange-400 text-black'
                             disabled={item.soldoutyn === 'Y'}
                             onClick={() => handleFoodAction(item.foodpkey, item.foodname, item.saleprice)}
                         >
                             {item.soldoutyn === 'N' ? (
-                                <p className='font-bold'>{item.foodname}</p>
+                                <p className='lg:font-bold'>{item.foodname}</p>
                             ) : (
                                 <div>
                                     <p className='font-bold line-through text-gray-400'>{item.foodname}</p>

@@ -58,14 +58,14 @@ export default function StoreTablePage() {
                             className="[grid-row:var(--gr)] [grid-column:var(--gc)] h-full"
                             onClick={() => handleOrderPage(storetable.storetablepkey)}
                         >
-                            <div className="bg-blue-200 p-4 rounded h-full flex flex-col justify-between">
+                            <div className={`p-4 rounded h-full flex flex-col justify-between ${storetable.totalorderprice > 0 ? 'bg-green-200' : 'bg-blue-200'}`}>
                                 <div className='flex justify-between'>
-                                    <p className='font-bold text-xl'>{storetable.label}</p>
-                                    <p>{storetable.totalorderprice > 0 ? '식사중' : ''}</p>
+                                    <p className='font-bold text-sm xl:text-xl text-black'>{storetable.label}</p>
+                                    <p className='text-black'>{storetable.totalorderprice > 0 ? '식사중' : ''}</p>
                                 </div>
                                 <div className='flex justify-between'>
-                                    <p className='text-sm'>주문금액</p>
-                                    <p className=''>{storetable.totalorderprice.toLocaleString()}</p>
+                                    <p className='text-sm text-black'>주문금액</p>
+                                    <p className='text-black'>{storetable.totalorderprice.toLocaleString()}</p>
                                 </div>
                             </div>
                         </div>

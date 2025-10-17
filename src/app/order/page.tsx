@@ -1,5 +1,6 @@
 'use client'
 
+import * as React from 'react';
 import {useEffect, useState} from "react";
 import {useRouter} from "next/navigation";
 import OrderList from "@/components/order/OrderList";
@@ -12,7 +13,7 @@ import {postPayment} from "@/lib/api/services/payment-api";
 import {OrderInfo, OrderFoodList} from '@/types';
 
 export default function OrderPage(
-    {searchParams}: { searchParams: { storetablepkey?: string }; }
+    { searchParams }: { searchParams: Promise<{ storetablepkey?: string }> }
 ) {
     // const searchParams = useSearchParams();
     const [orderinfo, setOrderinfo] = useState<OrderInfo>({
@@ -35,7 +36,8 @@ export default function OrderPage(
 
     const router = useRouter();
 
-    const storetablepkey = Number(searchParams.storetablepkey ?? 0);
+    const params = React.use(searchParams);
+    const storetablepkey = Number(params.storetablepkey ?? 0);
 
     useEffect(() => {
         // 주문서 상세 및 주문상품 목록 조회
@@ -48,18 +50,23 @@ export default function OrderPage(
         if (orderinfo === null) {
             // 첫 주문
             try {
-                const req_orderfoodlist = orderfoodlist.map((orderfood: OrderFoodList) => {
+                const orderfoodlist_re = orderfoodlist.filter((orderfood: OrderFoodList) => {return orderfood.ordercount > 0});
+                const req_orderfoodlist = orderfoodlist_re.map((orderfood: OrderFoodList) => {
                     return {
                         orderfoodpkey: orderfood.orderfoodpkey,
                         foodpkey: orderfood.foodpkey,
                         ordercount: orderfood.ordercount,
                     }
                 })
-                const response = await postFirstOrder(storetablepkey, req_orderfoodlist);
-                if (response.status === 200 && response.data.rescode === '0000') {
+                if (req_orderfoodlist.length === 0) {
                     router.replace('/store-table');
                 } else {
-                    alert(response.data.message);
+                    const response = await postFirstOrder(storetablepkey, req_orderfoodlist);
+                    if (response.status === 200 && response.data.rescode === '0000') {
+                        router.replace('/store-table');
+                    } else {
+                        alert(response.data.message);
+                    }
                 }
             } catch (err) {
                 console.error(err);
@@ -76,7 +83,7 @@ export default function OrderPage(
                 })
                 const response = await postReOrder(orderinfo.orderinfopkey, req_orderfoodlist);
                 if (response.status === 200 && response.data.rescode === '0000') {
-                    // router.replace('/store-table');
+                    router.replace('/store-table');
                 } else {
                     alert(response.data.message);
                 }
@@ -262,7 +269,7 @@ export default function OrderPage(
                     <KeyPad onEnterKeyClickAction={onEnterKeyClickAction}/>
                 </div>
             </div>
-            <div className='flex-[4] gap-2 grid gird-rows-10'>
+            <div className='flex-[4] grid grid-rows-10 gap-2'>
                 <CategoryMenuList handleFoodAction={handleFoodAction}/>
                 <ActionButtons
                     handleOrder={handleOrder}
